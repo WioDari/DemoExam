@@ -15,7 +15,7 @@
 2. Microsoft.EntityFrameworkCore.Design
 3. Microsoft.EntityFrameworkCore.Tools
 4. Npgsql
-5. Npgsql.EntityFrameworkCore.PosgreSQL
+5. Npgsql.EntityFrameworkCore.PostgreSQL
 
 ## Необходимые доработки
 
