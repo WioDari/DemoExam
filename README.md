@@ -13,7 +13,7 @@
 Также были использованы следующие пакеты, установленные через пакетный менеджер NuGet:
 1. Microsoft.EntityFrameworkCore
 2. Microsoft.EntityFrameworkCore.Design
-3. Microsoft.EntityFrameworkCore.Rools
+3. Microsoft.EntityFrameworkCore.Tools
 4. Npgsql
 5. Npgsql.EntityFrameworkCore.PosgreSQL
 
