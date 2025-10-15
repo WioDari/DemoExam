@@ -1,1 +1,18 @@
 # DemoExam
+
+Проект информационной системы в рамках оценочных материалов демонстрационного экзамена 2026 по направлению 09.02.07 "Информационные системы и программирование".<br>
+Код: 09.02.07-2-2026 Программист
+
+## Стек технологий
+
+Для разработки были использованы:
+1. Язык программирования: C# (.NET 8)
+2. Графический фреймворк: Windows Presentation Foundation (WPF)
+3. СУБД: PostgreSQL
+
+Также были использованы следующие пакеты, установленные через пакетный менеджер NuGet:
+1. Microsoft.EntityFrameworkCore
+2. Microsoft.EntityFrameworkCore.Design
+3. Microsoft.EntityFrameworkCore.Rools
+4. Npgsql
+5. Npgsql.EntityFrameworkCore.PosgreSQL
