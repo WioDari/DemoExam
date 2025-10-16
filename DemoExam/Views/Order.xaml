@@ -6,7 +6,15 @@
       xmlns:local="clr-namespace:DemoExam.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Order">
+      Title="Order" RenderTransformOrigin="0.5,0.5">
+    <Page.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform AngleX="0"/>
+            <RotateTransform Angle="0"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Page.RenderTransform>
 
     <Grid Background="#FF13FF00">
         <ListBox ItemsSource="{Binding data}" SelectedItem="{Binding SelectedOrder}">

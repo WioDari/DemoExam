@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:DemoExam"
              StartupUri="/Views/Auth.xaml">
     <Application.Resources>
-
+        <local:DiscountToBGConverter x:Key="DiscountToBGConverter"/>
+        <local:QuantityToColorConverter x:Key="QuantityToColorConverter"/>
+        <local:OrderIdToVisibilityConverter x:Key="OrderIdToVisibilityConverter"/>
     </Application.Resources>
 </Application>

@@ -20,16 +20,16 @@
                     <Image Height="128" Margin="10,0,0,0" Width="125" Source="{Binding photo}"/>
                 </Border>
 
-                                <StackPanel Grid.Column="1" Margin="5,5,5,5">
+                <StackPanel Grid.Column="1" Margin="5,5,5,5">
                     <TextBlock Text="{Binding name}" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Padding="0,0,0,1" MinWidth="1"/>
                     <TextBlock Text="{Binding description}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                     <TextBlock Text="{Binding creator}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                     <TextBlock Text="{Binding supplier}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                     <TextBlock Text="{Binding price, StringFormat=Цена: {0} }" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
-                    <TextBlock Text="{Binding quantity, StringFormat=Количество на складе: {0}}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
+                    <TextBlock Foreground="{Binding quantity, Converter={StaticResource QuantityToColorConverter}}" Text="{Binding quantity, StringFormat=Количество на складе: {0}}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                 </StackPanel>
 
-                <Border BorderBrush="Black" BorderThickness="1,0,1,0" Grid.Column="2">
+                <Border BorderBrush="Black" BorderThickness="1,0,1,0" Grid.Column="2" Background="{Binding discount, Converter={StaticResource DiscountToBGConverter}}">
                     <TextBlock Grid.Column="2" Text="{Binding discount, StringFormat={}{0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="57" Width="100" FontFamily="Times New Roman" FontSize="44" FontWeight="Bold"/>
                 </Border>
             </Grid>

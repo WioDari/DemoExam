@@ -33,7 +33,7 @@
                   DisplayMemberPath="address"
                   />
         <Button Grid.Column="1" Content="Сохранить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
-        <Button Content="Удалить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
+        <Button Visibility="{Binding orderContainer,Converter={StaticResource OrderIdToVisibilityConverter}}" Content="Удалить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="380" TextAlignment="Center" FontWeight="Bold" FontSize="24"><Run Language="ru-ru" Text="{Binding title}"/></TextBlock>
         <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="20,138,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" DisplayDate="{Binding order_date}"/>
         <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="20,177,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" DisplayDate="{Binding ship_date}"/>

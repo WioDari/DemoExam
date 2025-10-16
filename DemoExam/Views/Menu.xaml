@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:DemoExam.Views"
         mc:Ignorable="d"
         Title="Menu" Height="720" Width="1123
-        " Background="White" Foreground="White" BorderBrush="White" ResizeMode="CanMinimize"
-    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+        " Foreground="White" BorderBrush="White" ResizeMode="CanMinimize"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" RenderTransformOrigin="0.5,0.5">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -468,6 +468,14 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
+    <Window.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform Angle="0"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Window.RenderTransform>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="284*"/>
