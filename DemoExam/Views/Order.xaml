@@ -17,7 +17,7 @@
     </Page.RenderTransform>
 
     <Grid Background="#FF13FF00">
-        <ListBox ItemsSource="{Binding data}" SelectedItem="{Binding SelectedOrder}">
+        <ListBox ItemsSource="{Binding data, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedOrder}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:ItemOrder />

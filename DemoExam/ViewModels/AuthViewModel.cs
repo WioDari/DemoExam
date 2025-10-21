@@ -31,10 +31,19 @@ namespace DemoExam.ViewModels
             }
         }
         public ICommand LoginCommand { get; }
+        public ICommand OpenGuestCommand { get; }
         public AuthViewModel()
         {
             LoginCommand = new RelayCommand(OnLogin);
+            OpenGuestCommand = new RelayCommand(OpenGuest);
         }
+
+        public void OpenGuest()
+        {
+            Window guest = new Guest();
+            guest.Show();
+        }
+
         public void OnLogin()
         {
             var context = new AppDbContext();

@@ -175,7 +175,7 @@
         </Grid.RowDefinitions>
         <Label Content="Вход в приложение" Margin="66,0,48,0" FontSize="36" FontFamily="Times New Roman" Grid.ColumnSpan="2" FontWeight="Bold"/>
         <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="1" Content="Войти" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="51" Width="208" FontFamily="Times New Roman" FontSize="22" Background="MediumSpringGreen" Foreground="Black" Command="{Binding LoginCommand}"/>
-        <Button Style="{DynamicResource ButtonStyle2}" Content="Гостевой режим" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="208" Height="51" FontFamily="Times New Roman" FontSize="22"/>
+        <Button Style="{DynamicResource ButtonStyle2}" Content="Гостевой режим" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="208" Height="51" FontFamily="Times New Roman" FontSize="22" Command="{Binding OpenGuestCommand}"/>
         <TextBox Style="{DynamicResource TextBoxStyle1}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="138,37,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" FontSize="24" Height="34" Text="{Binding login}"/>
         <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="138,111,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" FontSize="24" Height="34" Text="{Binding password}"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,39,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Логин:" VerticalAlignment="Top" FontSize="24" Height="32" Width="77" RenderTransformOrigin="0.35,0.568"/>

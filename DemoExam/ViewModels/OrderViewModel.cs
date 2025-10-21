@@ -31,7 +31,8 @@ namespace DemoExam.ViewModels
             set
             {
                 _selectedOrder = value;
-                EditOrder(int.Parse(_selectedOrder.id));
+                if (_selectedOrder != null)
+                    EditOrder(int.Parse(_selectedOrder.id));
                 OnPropertyChanged();
             }
         }
@@ -46,7 +47,15 @@ namespace DemoExam.ViewModels
             public string status { get; set; }
         }
 
-        public ObservableCollection<OrderView> data { get; set; }
+        private ObservableCollection<OrderView> _data;
+        public ObservableCollection<OrderView> data { 
+            get => _data; 
+            set
+            {
+                _data = value;
+                OnPropertyChanged();
+            }
+        }
 
         public OrderViewModel()
         {
@@ -58,22 +67,24 @@ namespace DemoExam.ViewModels
             var w = new Views.EditOrder();
             w.DataContext = new EditOrderViewModel(order_id);
             w.ShowDialog();
+            LoadOrders();
         }
 
         public void LoadOrders()
         {
             var context = new AppDbContext();
-            data = new ObservableCollection<OrderView>(context.Order
+            _data = new ObservableCollection<OrderView>(context.Order
                 .Include(o => o.address)
                 .Select(o => new OrderView
                 {
                     id = o.id.ToString(),
                     address = o.address.address,
                     art = o.art,
-                    order_date = o.order_date,
-                    ship_date = o.ship_date,
+                    order_date = o.order_date.ToString("dd.MM.yyyy"),
+                    ship_date = o.ship_date.ToString("dd.MM.yyyy"),
                     status = o.status
                 })
+                .OrderBy(o => o.id)
                 .ToList());
         }
     }

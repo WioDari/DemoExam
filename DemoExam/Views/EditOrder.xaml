@@ -6,6 +6,41 @@
         xmlns:local="clr-namespace:DemoExam.Views"
         mc:Ignorable="d"
         Title="EditOrder" Height="400" Width="400" ResizeMode="CanMinimize" FontFamily="Times New Roman" FontSize="20">
+    <Window.Resources>
+        <Style x:Key="DatePickerCalendarStyle1" TargetType="{x:Type Calendar}">
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFE4EAF0" Offset="0"/>
+                        <GradientStop Color="#FFECF0F4" Offset="0.16"/>
+                        <GradientStop Color="#FFFCFCFD" Offset="0.16"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                        <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                        <GradientStop Color="#FF718597" Offset="0.375"/>
+                        <GradientStop Color="#FF617584" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Calendar}">
+                        <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
+                            <CalendarItem x:Name="PART_CalendarItem" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Style="{TemplateBinding CalendarItemStyle}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -23,7 +58,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="9,181,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Дата доставки:" VerticalAlignment="Top"/>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="20,50,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170"
                   ItemsSource="{Binding statusList}"
-                  SelectedItem="{Binding selectedStatus}">
+                  SelectedItem="{Binding selectedStatus, UpdateSourceTrigger=PropertyChanged}">
         </ComboBox>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="20,9,0,0" Grid.Row="1" Text="{Binding art}" VerticalAlignment="Top" Width="170"/>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="20,95,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" 
@@ -32,10 +67,10 @@
                   SelectedValuePath="id" 
                   DisplayMemberPath="address"
                   />
-        <Button Grid.Column="1" Content="Сохранить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
-        <Button Visibility="{Binding orderContainer,Converter={StaticResource OrderIdToVisibilityConverter}}" Content="Удалить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
+        <Button Command="{Binding SaveCommand}" Grid.Column="1" Content="Сохранить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
+        <Button Command="{Binding DeleteCommand}" Visibility="{Binding orderContainer,Converter={StaticResource OrderIdToVisibilityConverter}}" Content="Удалить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="380" TextAlignment="Center" FontWeight="Bold" FontSize="24"><Run Language="ru-ru" Text="{Binding title}"/></TextBlock>
-        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="20,138,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" DisplayDate="{Binding order_date}"/>
-        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="20,177,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" DisplayDate="{Binding ship_date}"/>
+        <DatePicker CalendarStyle="{DynamicResource DatePickerCalendarStyle1}" Grid.Column="1" HorizontalAlignment="Left" Margin="20,138,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" SelectedDate="{Binding order_date, Converter={StaticResource DateToDatePickerConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" />
+        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="20,177,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" SelectedDate="{Binding ship_date, Converter={StaticResource DateToDatePickerConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

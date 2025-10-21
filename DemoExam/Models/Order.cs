@@ -15,8 +15,8 @@ namespace DemoExam.Models
 
         [Required]
         public string art { get; set; }
-        public string order_date { get; set; }
-        public string ship_date { get; set; }
+        public DateTime order_date { get; set; } = DateTime.UtcNow;
+        public DateTime ship_date { get; set; }
         
         [ForeignKey("Address")]
         public int addressid { get; set; }

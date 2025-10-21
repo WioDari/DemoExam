@@ -7,5 +7,6 @@
         <local:DiscountToBGConverter x:Key="DiscountToBGConverter"/>
         <local:QuantityToColorConverter x:Key="QuantityToColorConverter"/>
         <local:OrderIdToVisibilityConverter x:Key="OrderIdToVisibilityConverter"/>
+        <local:DateToDatePickerConverter x:Key="DateToDatePickerConverter"/>
     </Application.Resources>
 </Application>

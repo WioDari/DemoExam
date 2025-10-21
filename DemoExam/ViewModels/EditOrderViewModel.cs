@@ -1,4 +1,5 @@
 ﻿using DemoExam.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -32,7 +34,7 @@ namespace DemoExam.ViewModels
             set
             {
                 _status = value;
-                _order.status = value;
+                _order.status = selectedStatus;
                 OnPropertyChanged();
             }
         }
@@ -48,26 +50,26 @@ namespace DemoExam.ViewModels
             }
         }
 
-        private DateOnly _order_date;
-        public DateOnly order_date
+        private DateTime _order_date = DateTime.UtcNow;
+        public DateTime order_date
         {
             get => _order_date;
             set
             {
                 _order_date = value;
-                //_order.order_date = value;
+                _order.order_date = value.ToUniversalTime();
                 OnPropertyChanged();
             }
         }
 
-        private DateOnly _ship_date;
-        public DateOnly ship_date
+        private DateTime _ship_date = DateTime.UtcNow;
+        public DateTime ship_date
         {
             get => _ship_date;
             set
             {
                 _ship_date = value;
-                //_order.ship_date = value;
+                _order.ship_date = value.ToUniversalTime();
                 OnPropertyChanged();
             }
         }
@@ -119,6 +121,7 @@ namespace DemoExam.ViewModels
             set
             {
                 _selectedStatus = value;
+                _order.status = _selectedStatus;
                 OnPropertyChanged();
             }
         }
@@ -129,9 +132,11 @@ namespace DemoExam.ViewModels
             get => _order;
         }
         public ICommand SaveCommand { get; }
+        public ICommand DeleteCommand { get; }
         public EditOrderViewModel(int? order_id = null)
         {
             SaveCommand = new RelayCommand(SaveData);
+            DeleteCommand = new RelayCommand(DeleteData);
 
             var context = new AppDbContext();
             addressList = new ObservableCollection<Address>(context.Address.ToList());
@@ -141,6 +146,8 @@ namespace DemoExam.ViewModels
             if (order_id == null)
             {
                 title = "Создание заказа";
+                var user = (User)Application.Current.Properties["CurrentUser"];
+                _order.client = user.name;
             }
             else
             {
@@ -149,15 +156,41 @@ namespace DemoExam.ViewModels
                 art = order.art;
                 selectedStatus = order.status;
                 selectedAddressId = order.addressid;
-                order_date = DateOnly.ParseExact(order.order_date, "dd.mm.yyyy");
-                ship_date = DateOnly.ParseExact(order.ship_date, "dd.mm.yyyy");
+                order_date = order.order_date.ToUniversalTime();
+                ship_date = order.ship_date.ToUniversalTime();
+            }
+        }
+
+        public void DeleteData()
+        {
+            var context = new AppDbContext();
+            if (_order.id == null)
+            {
+                MessageBox.Show("Заказ не выбран!", "Ошибка");
+                foreach (Window w in Application.Current.Windows)
+                {
+                    if (w is Views.EditOrder)
+                    {
+                        w.Close();
+                    }
+                }
+                return;
+            }
+            
+            var result = MessageBox.Show("Вы уверены, что хотите удалить заказ?","Подтверждение",MessageBoxButton.YesNo,MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                context.Order.Remove(_order);
+                context.SaveChanges();
+                MessageBox.Show("Заказ успешно удалён!", "Успешно");
             }
         }
 
         public void SaveData()
         {
+            MessageBox.Show(order_date.ToString());
             var context = new AppDbContext();
-            if (_order.id == null)
+            if (_order.id == 0)
             {
                 context.Order.Add(_order);
             }
