@@ -11,6 +11,20 @@ namespace DemoExam.ViewModels
 {
     public class TovarViewModel : BaseViewModel
     {
+        private string _searchText { get; set; }
+        public string searchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                ApplyFilters();
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> suppliers { get; set; }
+
         private ObservableCollection<Tovar> _tovary;
         public ObservableCollection<Tovar> tovary
         {
@@ -22,15 +36,27 @@ namespace DemoExam.ViewModels
             }
         }
 
+        private ObservableCollection<Tovar> _allTovary;
+
         public TovarViewModel()
         {
             LoadTovar();
+
+            var context = new AppDbContext();
+            var supplierList = context.Tovar
+                .Select(t => t.supplier)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToList();
+            supplierList.Insert(0, "Все поставщики");
+            suppliers = new ObservableCollection<string>(supplierList);
         }
 
         private void LoadTovar()
         {
             var context = new AppDbContext();
-            tovary = new ObservableCollection<Tovar>(context.Tovar.ToList());
+            _allTovary = new ObservableCollection<Tovar>(context.Tovar.ToList());
+            _tovary = _allTovary;
             foreach (var t in tovary)
             {
                 t.name = $"{t.category} | {t.name}";
@@ -38,6 +64,27 @@ namespace DemoExam.ViewModels
                 t.creator = $"Производитель: {t.creator}";
                 t.supplier = $"Поставщик: {t.supplier}";
                 t.photo = t.photo is null ? $"/Resources/Images/picture.png" : $"/Resources/Images/{t.photo}";
+            }
+        }
+
+        private void ApplyFilters()
+        {
+            var query = _allTovary.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                string temp = searchText.ToLower();
+                query = query.Where(t =>
+                t.description.ToLower().Contains(temp) ||
+                t.creator.ToLower().Contains(temp) || 
+                t.name.ToLower().Contains(temp) ||
+                t.category.ToLower().Contains(temp));
+            }
+
+            tovary.Clear();
+            foreach(var t in query)
+            {
+                tovary.Add(t);
             }
         }
     }
