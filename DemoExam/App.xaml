@@ -8,5 +8,7 @@
         <local:QuantityToColorConverter x:Key="QuantityToColorConverter"/>
         <local:OrderIdToVisibilityConverter x:Key="OrderIdToVisibilityConverter"/>
         <local:DateToDatePickerConverter x:Key="DateToDatePickerConverter"/>
+        <local:RadioButtonConverter x:Key="RadioButtonConverter"/>
+        <local:FiltersVisibilityConverter x:Key="FiltersVisibilityConverter"/>
     </Application.Resources>
 </Application>

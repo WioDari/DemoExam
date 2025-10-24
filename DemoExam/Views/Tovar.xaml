@@ -6,17 +6,17 @@
       xmlns:local="clr-namespace:DemoExam.Views"
       xmlns:vm="clr-namespace:DemoExam.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="810"
       Title="Tovar">
 
     <Grid Background="#FF00FF10">
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="{Binding ., Converter={StaticResource FiltersVisibilityConverter}}"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        
-        
-        
+
+
+
         <ListBox ItemsSource="{Binding tovary}" Grid.RowSpan="1" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -27,13 +27,13 @@
 
         <StackPanel Background="White" Orientation="Horizontal">
             <TextBox TextWrapping="Wrap" Text="{Binding searchText, UpdateSourceTrigger=PropertyChanged}" Width="450" Height="27" FontFamily="Times New Roman" FontSize="20" Margin="10,0,10,0"/>
-            <ComboBox ItemsSource="{Binding suppliers}" SelectedItem="Все поставщики"  Width="200" Height="27" Margin="0,0,10,0" FontFamily="Times New Roman" FontSize="16"/>
+            <ComboBox ItemsSource="{Binding suppliers}" SelectedItem="{Binding selectedSupplier}"  Width="200" Height="27" Margin="0,0,10,0" FontFamily="Times New Roman" FontSize="16"/>
             <StackPanel Width="110" Height="30">
-                <RadioButton Content="По возрастанию"/>
-                <RadioButton Content="По убыванию"/>
+                <RadioButton Content="По возрастанию" GroupName="sortGroup" IsChecked="{Binding selectedSort, Converter={StaticResource RadioButtonConverter}, ConverterParameter=по возрастанию}"/>
+                <RadioButton Content="По убыванию" GroupName="sortGroup" IsChecked="{Binding selectedSort, Converter={StaticResource RadioButtonConverter}, ConverterParameter=по убыванию}"/>
             </StackPanel>
 
         </StackPanel>
-
+       
     </Grid>
 </Page>

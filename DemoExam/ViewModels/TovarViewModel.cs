@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,13 +12,37 @@ namespace DemoExam.ViewModels
 {
     public class TovarViewModel : BaseViewModel
     {
-        private string _searchText { get; set; }
+        private string _searchText { get; set; } = string.Empty;
         public string searchText
         {
             get => _searchText;
             set
             {
                 _searchText = value;
+                ApplyFilters();
+                OnPropertyChanged();
+            }
+        }
+
+        private string _selectedSupplier { get; set; } = "Все поставщики";
+        public string selectedSupplier
+        {
+            get => _selectedSupplier;
+            set
+            {
+                _selectedSupplier = value;
+                ApplyFilters();
+                OnPropertyChanged();
+            }
+        }
+
+        private string _selectedSort { get; set; }
+        public string selectedSort
+        {
+            get => _selectedSort;
+            set
+            {
+                _selectedSort = value;
                 ApplyFilters();
                 OnPropertyChanged();
             }
@@ -56,14 +81,15 @@ namespace DemoExam.ViewModels
         {
             var context = new AppDbContext();
             _allTovary = new ObservableCollection<Tovar>(context.Tovar.ToList());
-            _tovary = _allTovary;
+            _tovary = new ObservableCollection<Tovar>(_allTovary);
             foreach (var t in tovary)
             {
+                int rnd = RandomNumberGenerator.GetInt32(100);
                 t.name = $"{t.category} | {t.name}";
                 t.description = $"Описание товара: {t.description}";
                 t.creator = $"Производитель: {t.creator}";
-                t.supplier = $"Поставщик: {t.supplier}";
                 t.photo = t.photo is null ? $"/Resources/Images/picture.png" : $"/Resources/Images/{t.photo}";
+                if (rnd < 10) t.photo = $"/Resources/Images/hehe.gif";
             }
         }
 
@@ -80,6 +106,18 @@ namespace DemoExam.ViewModels
                 t.name.ToLower().Contains(temp) ||
                 t.category.ToLower().Contains(temp));
             }
+
+            if (selectedSupplier != "Все поставщики")
+            {
+                query = query.Where(t => t.supplier == selectedSupplier);
+            }
+
+            query = selectedSort switch
+            {
+                "по возрастанию" => query.OrderBy(t => t.quantity),
+                "по убыванию" => query.OrderByDescending(t => t.quantity),
+                _ => query
+            };
 
             tovary.Clear();
             foreach(var t in query)

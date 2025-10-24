@@ -19,6 +19,7 @@
     <None Remove="Resources\Images\7.jpg" />
     <None Remove="Resources\Images\8.jpg" />
     <None Remove="Resources\Images\9.jpg" />
+    <None Remove="Resources\Images\hehe.gif" />
     <None Remove="Resources\Images\Icon.png" />
   </ItemGroup>
 
@@ -51,6 +52,9 @@
     <Resource Include="Resources\Images\7.jpg" />
     <Resource Include="Resources\Images\8.jpg" />
     <Resource Include="Resources\Images\9.jpg" />
+    <Resource Include="Resources\Images\hehe.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\Icon.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
