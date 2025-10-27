@@ -16,7 +16,7 @@ namespace DemoExam.Models
         public string art { get; set; }
         public string name { get; set; }
         public string dim { get; set; }
-        public int price { get; set; }
+        public double price { get; set; }
         public string supplier { get; set; }
         public string creator { get; set; }
         public string category { get; set; }

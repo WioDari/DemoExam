@@ -1,0 +1,21 @@
+﻿<Window x:Class="DemoExam.Views.EditTovar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoExam.Views"
+        mc:Ignorable="d"
+        Title="EditTovar" Height="700" Width="400" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="299*"/>
+            <RowDefinition Height="336*"/>
+            <RowDefinition Height="49*"/>
+        </Grid.RowDefinitions>
+        <Image Source="{Binding imagePath}" Height="180" Margin="110,58,110,0" VerticalAlignment="Top"/>
+        <Button Command="{Binding SelectImageCommand}" Content="Добавить изображение" HorizontalAlignment="Center" Margin="0,259,0,0" VerticalAlignment="Top" Height="20" Width="134"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Добавление товара" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24" FontWeight="Bold" Height="28" Width="380" TextAlignment="Center"/>
+        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="212,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="35" Width="178" FontFamily="Times New Roman" FontSize="20"/>
+
+    </Grid>
+</Window>

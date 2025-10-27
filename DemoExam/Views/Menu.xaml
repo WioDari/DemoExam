@@ -502,7 +502,7 @@
             <Button Content="Заказы" Height="30" Padding="1,1,1,1" Margin="0,5,0,0" FontFamily="Times New Roman" FontSize="20" Style="{DynamicResource ButtonStyle1}" Command="{Binding OrderNavigate}"/>
             <Separator Height="20"/>
             <StackPanel>
-                <Button Content="Добавить товар" Height="30" FontFamily="Times New Roman" FontSize="20" Style="{DynamicResource ButtonStyle1}"/>
+                <Button Content="Добавить товар" Height="30" FontFamily="Times New Roman" FontSize="20" Style="{DynamicResource ButtonStyle1}" Command="{Binding EditTovarCommand}"/>
                 <Button Content="Добавить заказ" Height="30" Margin="0,5,0,0" FontFamily="Times New Roman" FontSize="20" Style="{DynamicResource ButtonStyle1}" Command="{Binding EditOrderCommand}"/>
             </StackPanel>
 

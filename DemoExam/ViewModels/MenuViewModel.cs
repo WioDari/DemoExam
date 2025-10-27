@@ -41,6 +41,8 @@ namespace DemoExam.ViewModels
         public ICommand OrderNavigate { get; }
         public ICommand EditOrderCommand { get; }
 
+        public ICommand EditTovarCommand { get; }
+
         public MenuViewModel()
         {
             User user = (User)Application.Current.Properties["CurrentUser"];
@@ -50,6 +52,7 @@ namespace DemoExam.ViewModels
             TovarNavigate = new RelayCommand(TovarNav);
             OrderNavigate = new RelayCommand(OrderNav);
             EditOrderCommand = new RelayCommand(EditOrder);
+            EditTovarCommand = new RelayCommand(EditTovar);
         }
 
         public void EditOrder()
@@ -57,6 +60,13 @@ namespace DemoExam.ViewModels
             EditOrder editOrder = new EditOrder();
             editOrder.DataContext = new EditOrderViewModel();
             editOrder.ShowDialog();
+        }
+
+        public void EditTovar()
+        {
+            EditTovar editTovar = new EditTovar();
+            editTovar.DataContext = new EditTovarViewModel();
+            editTovar.ShowDialog();
         }
 
         public void Logout()
