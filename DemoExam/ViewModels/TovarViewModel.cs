@@ -48,6 +48,19 @@ namespace DemoExam.ViewModels
             }
         }
 
+        private Tovar _selectedTovar;
+        public Tovar selectedTovar
+        {
+            get => _selectedTovar;
+            set
+            {
+                _selectedTovar = value;
+                if (_selectedTovar != null)
+                    EditTovar(_selectedTovar.id);
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<string> suppliers { get; set; }
 
         private ObservableCollection<Tovar> _tovary;
@@ -77,6 +90,14 @@ namespace DemoExam.ViewModels
             suppliers = new ObservableCollection<string>(supplierList);
         }
 
+        private void EditTovar(int? tovar_id = null) 
+        {
+            var EditTovar = new Views.EditTovar();
+            EditTovar.DataContext = new EditTovarViewModel(tovar_id);
+            EditTovar.ShowDialog();
+            LoadTovar();
+        }
+
         private void LoadTovar()
         {
             var context = new AppDbContext();
@@ -88,7 +109,7 @@ namespace DemoExam.ViewModels
                 t.name = $"{t.category} | {t.name}";
                 t.description = $"Описание товара: {t.description}";
                 t.creator = $"Производитель: {t.creator}";
-                t.photo = t.photo is null ? $"/Resources/Images/picture.png" : $"/Resources/Images/{t.photo}";
+                t.photo = t.photo is null ? $"/Resources/Images/picture.png" : t.photo;
                 if (rnd < 10) t.photo = $"/Resources/Images/hehe.gif";
             }
         }

@@ -183,6 +183,14 @@ namespace DemoExam.ViewModels
                 context.Order.Remove(_order);
                 context.SaveChanges();
                 MessageBox.Show("Заказ успешно удалён!", "Успешно");
+                foreach (Window w in Application.Current.Windows)
+                {
+                    if (w is Views.EditOrder)
+                    {
+                        w.Close();
+                    }
+                }
+                return;
             }
         }
 

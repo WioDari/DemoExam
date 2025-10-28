@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DemoExam.Views"
         mc:Ignorable="d"
-        Title="EditOrder" Height="400" Width="400" ResizeMode="CanMinimize" FontFamily="Times New Roman" FontSize="20">
+        Title="Содержимое заказа" Height="400" Width="400" ResizeMode="CanMinimize" FontFamily="Times New Roman" FontSize="20">
     <Window.Resources>
         <Style x:Key="DatePickerCalendarStyle1" TargetType="{x:Type Calendar}">
             <Setter Property="Foreground" Value="#FF333333"/>
@@ -40,6 +40,61 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="5,5,5,5">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -47,30 +102,30 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="13*"/>
-            <RowDefinition Height="99*"/>
-            <RowDefinition Height="16*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="283*"/>
+            <RowDefinition Height="62*"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Артикул:" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Статус:" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="9,95,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Адрес доставки:" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,142,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Дата заказа:" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="9,181,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Дата доставки:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Артикул:" VerticalAlignment="Top" Height="23" Width="78"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Статус:" VerticalAlignment="Top" Height="23" Width="63"/>
+        <TextBlock HorizontalAlignment="Left" Margin="9,95,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Адрес доставки:" VerticalAlignment="Top" Height="23" Width="141"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,142,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Дата заказа:" VerticalAlignment="Top" Height="23" Width="102"/>
+        <TextBlock HorizontalAlignment="Left" Margin="9,181,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Дата доставки:" VerticalAlignment="Top" Height="23" Width="128"/>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="20,50,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170"
                   ItemsSource="{Binding statusList}"
-                  SelectedItem="{Binding selectedStatus, UpdateSourceTrigger=PropertyChanged}">
+                  SelectedItem="{Binding selectedStatus, UpdateSourceTrigger=PropertyChanged}" Height="29">
         </ComboBox>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="20,9,0,0" Grid.Row="1" Text="{Binding art}" VerticalAlignment="Top" Width="170"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="20,9,0,0" Grid.Row="1" Text="{Binding art}" VerticalAlignment="Top" Width="170" Height="25"/>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="20,95,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" 
                   ItemsSource="{Binding addressList}" 
                   SelectedValue="{Binding selectedAddressId}" 
                   SelectedValuePath="id" 
-                  DisplayMemberPath="address"
+                  DisplayMemberPath="address" Height="29"
                   />
-        <Button Command="{Binding SaveCommand}" Grid.Column="1" Content="Сохранить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
-        <Button Command="{Binding DeleteCommand}" Visibility="{Binding orderContainer,Converter={StaticResource OrderIdToVisibilityConverter}}" Content="Удалить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="28"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="380" TextAlignment="Center" FontWeight="Bold" FontSize="24"><Run Language="ru-ru" Text="{Binding title}"/></TextBlock>
-        <DatePicker CalendarStyle="{DynamicResource DatePickerCalendarStyle1}" Grid.Column="1" HorizontalAlignment="Left" Margin="20,138,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" SelectedDate="{Binding order_date, Converter={StaticResource DateToDatePickerConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" />
-        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="20,177,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" SelectedDate="{Binding ship_date, Converter={StaticResource DateToDatePickerConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Style="{DynamicResource ButtonStyle1}" Command="{Binding SaveCommand}" Grid.Column="1" Content="Сохранить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="42" Background="MediumSpringGreen"/>
+        <Button Command="{Binding DeleteCommand}" Visibility="{Binding orderContainer,Converter={StaticResource OrderIdToVisibilityConverter}}" Content="Удалить" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="180" Height="42" Style="{DynamicResource ButtonStyle1}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Grid.ColumnSpan="2" Width="380" TextAlignment="Center" FontWeight="Bold" FontSize="24" Height="28"><Run Language="ru-ru" Text="{Binding title}"/></TextBlock>
+        <DatePicker CalendarStyle="{DynamicResource DatePickerCalendarStyle1}" Grid.Column="1" HorizontalAlignment="Left" Margin="20,138,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" SelectedDate="{Binding order_date, Converter={StaticResource DateToDatePickerConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Height="31" />
+        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="20,177,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" SelectedDate="{Binding ship_date, Converter={StaticResource DateToDatePickerConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="31"/>
     </Grid>
 </Window>

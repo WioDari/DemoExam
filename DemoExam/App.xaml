@@ -10,5 +10,7 @@
         <local:DateToDatePickerConverter x:Key="DateToDatePickerConverter"/>
         <local:RadioButtonConverter x:Key="RadioButtonConverter"/>
         <local:FiltersVisibilityConverter x:Key="FiltersVisibilityConverter"/>
+        <local:TovarIdVisibility x:Key="TovarIdVisibility"/>
+        <local:TovarDeleteVisibility x:Key="TovarDeleteVisibility"/>
     </Application.Resources>
 </Application>

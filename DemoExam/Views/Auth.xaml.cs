@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -24,6 +25,19 @@ namespace DemoExam.Views
         {
             InitializeComponent();
             DataContext = new AuthViewModel();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation fadeIn = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = new Duration(TimeSpan.FromSeconds(30)),
+                EasingFunction = new QuarticEase { EasingMode = EasingMode.EaseIn }
+            };
+
+            BG.BeginAnimation(OpacityProperty, fadeIn);
         }
     }
 }

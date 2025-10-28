@@ -29,10 +29,11 @@
                     <TextBlock Foreground="{Binding quantity, Converter={StaticResource QuantityToColorConverter}}" Text="{Binding quantity, StringFormat=Количество на складе: {0}}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                 </StackPanel>
 
-                <Border BorderBrush="Black" BorderThickness="1,0,1,0" Grid.Column="2" Background="{Binding discount, Converter={StaticResource DiscountToBGConverter}}">
+                <Border BorderBrush="Black" BorderThickness="1,0,1,0" Grid.Column="2" Background="{Binding discount, Converter={StaticResource DiscountToBGConverter}}" Margin="0,0,10,0">
                     <TextBlock Grid.Column="2" Text="{Binding discount, StringFormat={}{0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="57" Width="100" FontFamily="Times New Roman" FontSize="44" FontWeight="Bold"/>
                 </Border>
             </Grid>
         </Border>
+        <TextBlock HorizontalAlignment="Left" Margin="626,134,0,0" TextWrapping="Wrap" Text="{Binding id}" VerticalAlignment="Top" Width="134" Foreground="{x:Null}"/>
     </Grid>
 </UserControl>

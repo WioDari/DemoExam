@@ -17,7 +17,7 @@
 
 
 
-        <ListBox ItemsSource="{Binding tovary}" Grid.RowSpan="1" Grid.Row="1">
+        <ListBox ItemsSource="{Binding tovary}" SelectedItem="{Binding selectedTovar}" Grid.RowSpan="1" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:ItemTovar />

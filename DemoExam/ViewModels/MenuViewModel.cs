@@ -1,4 +1,5 @@
 ﻿using DemoExam.Models;
+using DemoExam.Timer;
 using DemoExam.Views;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,17 @@ namespace DemoExam.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
+        private string _timeRemaining;
+        public string TimeRemaining
+        {
+            get => _timeRemaining;
+            set
+            {
+                _timeRemaining = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _name;
         public string name
         {
@@ -36,6 +48,17 @@ namespace DemoExam.ViewModels
             }
         }
 
+        private string _header = "Список товаров";
+        public string header
+        {
+            get => _header;
+            set
+            {
+                _header = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand LogoutCommand { get; }
         public ICommand TovarNavigate { get; }
         public ICommand OrderNavigate { get; }
@@ -45,6 +68,8 @@ namespace DemoExam.ViewModels
 
         public MenuViewModel()
         {
+            App.SessionTimer.Start();
+
             User user = (User)Application.Current.Properties["CurrentUser"];
             name = user.name;
             currentPage = new Views.Tovar();
@@ -53,7 +78,14 @@ namespace DemoExam.ViewModels
             OrderNavigate = new RelayCommand(OrderNav);
             EditOrderCommand = new RelayCommand(EditOrder);
             EditTovarCommand = new RelayCommand(EditTovar);
+
+            App.SessionTimer.timeRemaining += SessionTimer_timeRemaining;
         }
+
+        private void SessionTimer_timeRemaining(TimeSpan time)
+        {
+            TimeRemaining = $"({time.Hours:D2}:{time.Minutes:D2}:{time.Seconds:D2})";
+        } 
 
         public void EditOrder()
         {
@@ -87,11 +119,13 @@ namespace DemoExam.ViewModels
         public void TovarNav()
         {
             currentPage = new Views.Tovar();
+            header = "Список товаров";
         }
 
         public void OrderNav()
         {
             currentPage = new Views.Order();
+            header = "Список заказов";
         }
     }
 }

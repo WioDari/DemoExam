@@ -50,10 +50,10 @@ namespace DemoExam.ViewModels
             var user = context.User.FirstOrDefault(u => u.login == login && u.password == password);
             if (user == null)
             {
-                MessageBox.Show("Логин или пароль введены неправильно!", "Ошибка!");
+                MessageBox.Show("Логин или пароль введены неправильно!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MessageBox.Show($"Добро пожаловать, {user.name}!","Успешно!");
+            MessageBox.Show($"Добро пожаловать, {user.name}!", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
             Application.Current.Properties["CurrentUser"] = user;
 
             Window menu = new Menu();

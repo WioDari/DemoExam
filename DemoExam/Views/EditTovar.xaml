@@ -5,17 +5,130 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DemoExam.Views"
         mc:Ignorable="d"
-        Title="EditTovar" Height="700" Width="400" ResizeMode="CanMinimize">
+        Title="Содержимое товара" Height="900" Width="400" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="5,5,5,5">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="299*"/>
-            <RowDefinition Height="336*"/>
-            <RowDefinition Height="49*"/>
+            <RowDefinition Height="311*"/>
+            <RowDefinition Height="510*"/>
+            <RowDefinition Height="63*"/>
         </Grid.RowDefinitions>
-        <Image Source="{Binding imagePath}" Height="180" Margin="110,58,110,0" VerticalAlignment="Top"/>
-        <Button Command="{Binding SelectImageCommand}" Content="Добавить изображение" HorizontalAlignment="Center" Margin="0,259,0,0" VerticalAlignment="Top" Height="20" Width="134"/>
+        <Image Source="{Binding imagePath}" Height="180" Margin="110,58,110,0" VerticalAlignment="Top" Stretch="Fill"/>
+        <Button Style="{DynamicResource ButtonStyle1}" Command="{Binding SelectImageCommand}" Content="Добавить изображение" HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Top" Height="39" Width="230" FontFamily="Times New Roman" FontSize="20"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Добавление товара" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="24" FontWeight="Bold" Height="28" Width="380" TextAlignment="Center"/>
-        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="212,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="35" Width="178" FontFamily="Times New Roman" FontSize="20"/>
+        <StackPanel Grid.Row="1">
+            <StackPanel Margin="5,5,5,5">
+                <StackPanel Height="43" Orientation="Horizontal" Visibility="{Binding id, Converter={StaticResource TovarIdVisibility}}">
+                    <TextBlock TextWrapping="Wrap" Text="ID товара:" FontFamily="Times New Roman" FontSize="22" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding id}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210" IsEnabled="False"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Артикул товара:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding art}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Название:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding name}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Категория:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <ComboBox Width="210" Height="26" FontFamily="Times New Roman" FontSize="18" ItemsSource="{Binding categoryList}" SelectedItem="{Binding selectedCategory, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Производитель:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <ComboBox Width="210" Height="26" FontFamily="Times New Roman" FontSize="18" ItemsSource="{Binding creatorList}" SelectedItem="{Binding selectedCreator, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Поставщик:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding supplier}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Цена:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding price}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Количество:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding quantity}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Единица изм.:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding dim}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Скидка:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding discount}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+                <StackPanel Height="43" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Описание:" FontFamily="Times New Roman" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,5,0" Width="152"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding description}" Height="26" FontFamily="Times New Roman" FontSize="18" Width="210"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="2" Margin="10,0,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Сохранить" Command="{Binding SaveTovarCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" Height="43" FontFamily="Times New Roman" FontSize="22" Style="{DynamicResource ButtonStyle1}" Background="MediumSpringGreen"/>
+            <Button Content="Удалить" Command="{Binding DeleteTovarCommand}" Visibility="{Binding selectedTovar, Converter={StaticResource TovarDeleteVisibility}}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="43" Style="{DynamicResource ButtonStyle1}" FontFamily="Times New Roman" FontSize="22"/>
+        </Grid>
+        <Rectangle HorizontalAlignment="Center" Height="180" Margin="0,58,0,0" Stroke="Chartreuse" VerticalAlignment="Top" Width="180"/>
 
     </Grid>
 </Window>

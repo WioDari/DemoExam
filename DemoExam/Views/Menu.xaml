@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DemoExam.Views"
         mc:Ignorable="d"
-        Title="Menu" Height="720" Width="1123
+        Title="Меню" Height="720" Width="1123
         " Foreground="White" BorderBrush="White" ResizeMode="CanMinimize"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" RenderTransformOrigin="0.5,0.5">
     <Window.Resources>
@@ -493,6 +493,8 @@
             </Grid.RowDefinitions>
             <TextBlock TextWrapping="Wrap" Text="{Binding name}" VerticalAlignment="Center" FontSize="20" Height="22" Foreground="Black" FontFamily="Times New Roman" HorizontalAlignment="Center" TextAlignment="Right" Width="791"/>
             <Button Style="{DynamicResource ButtonStyle1}" Content="Выйти" HorizontalAlignment="Left" Margin="725,49,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="20" Width="90" Grid.RowSpan="2" Command="{Binding LogoutCommand}"/>
+            <TextBlock HorizontalAlignment="Left" Margin="0,29,0,0" TextWrapping="Wrap" Text="{Binding header}" VerticalAlignment="Top" Foreground="Black" FontFamily="Times New Roman" FontSize="26" FontWeight="Bold" Grid.RowSpan="2"/>
+            <TextBlock HorizontalAlignment="Left" Margin="645,3,0,0" TextWrapping="Wrap" Text="{Binding TimeRemaining}" VerticalAlignment="Top" Grid.Row="1" Foreground="#FF8A8A8A" FontFamily="Times New Roman" FontSize="18"/>
 
         </Grid>
         <Image HorizontalAlignment="Left" Height="64" Margin="10,10,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/Images/Icon.png"/>
@@ -505,6 +507,7 @@
                 <Button Content="Добавить товар" Height="30" FontFamily="Times New Roman" FontSize="20" Style="{DynamicResource ButtonStyle1}" Command="{Binding EditTovarCommand}"/>
                 <Button Content="Добавить заказ" Height="30" Margin="0,5,0,0" FontFamily="Times New Roman" FontSize="20" Style="{DynamicResource ButtonStyle1}" Command="{Binding EditOrderCommand}"/>
             </StackPanel>
+            <TextBlock TextWrapping="Wrap" Text="TextBlock"/>
 
         </StackPanel>
     </Grid>
