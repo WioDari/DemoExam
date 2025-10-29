@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace DemoExam.ViewModels
 {
@@ -273,6 +274,13 @@ namespace DemoExam.ViewModels
                 string fileName = Path.GetFileName(dlg.FileName);
                 string newPath = Path.Combine(imagesDir, fileName);
                 File.Copy(dlg.FileName, newPath, overwrite: true);
+
+                var image = new BitmapImage(new Uri(newPath));
+                if (image.PixelWidth > 300 || image.PixelHeight > 200)
+                {
+                    MessageBox.Show("Недопустимые размеры изображения", "Успешно!");
+                    return;
+                }
 
                 imagePath = newPath;
                 selectedTovar.photo = imagePath;

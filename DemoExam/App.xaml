@@ -12,5 +12,8 @@
         <local:FiltersVisibilityConverter x:Key="FiltersVisibilityConverter"/>
         <local:TovarIdVisibility x:Key="TovarIdVisibility"/>
         <local:TovarDeleteVisibility x:Key="TovarDeleteVisibility"/>
+        <local:ManagerVisibilityConverter x:Key="ManagerVisibilityConverter"/>
+        <local:PriceVisibilityConverter x:Key="PriceVisibilityConverter"/>
+        <local:DiscountMathConverter x:Key="DiscountMathConverter"/>
     </Application.Resources>
 </Application>

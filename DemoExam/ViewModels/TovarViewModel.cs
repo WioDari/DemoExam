@@ -92,10 +92,14 @@ namespace DemoExam.ViewModels
 
         private void EditTovar(int? tovar_id = null) 
         {
-            var EditTovar = new Views.EditTovar();
-            EditTovar.DataContext = new EditTovarViewModel(tovar_id);
-            EditTovar.ShowDialog();
-            LoadTovar();
+            var user = (User)Application.Current.Properties["CurrentUser"];
+            if (user != null && user.role == "Администратор")
+            {
+                var EditTovar = new Views.EditTovar();
+                EditTovar.DataContext = new EditTovarViewModel(tovar_id);
+                EditTovar.ShowDialog();
+                LoadTovar();
+            }
         }
 
         private void LoadTovar()
@@ -110,7 +114,6 @@ namespace DemoExam.ViewModels
                 t.description = $"Описание товара: {t.description}";
                 t.creator = $"Производитель: {t.creator}";
                 t.photo = t.photo is null ? $"/Resources/Images/picture.png" : t.photo;
-                if (rnd < 10) t.photo = $"/Resources/Images/hehe.gif";
             }
         }
 

@@ -64,10 +64,14 @@ namespace DemoExam.ViewModels
 
         public void EditOrder(int? order_id = null)
         {
-            var w = new Views.EditOrder();
-            w.DataContext = new EditOrderViewModel(order_id);
-            w.ShowDialog();
-            LoadOrders();
+            var user = (User)Application.Current.Properties["CurrentUser"];
+            if (user != null && user.role == "Администратор")
+            {
+                var w = new Views.EditOrder();
+                w.DataContext = new EditOrderViewModel(order_id);
+                w.ShowDialog();
+                LoadOrders();
+            }
         }
 
         public void LoadOrders()

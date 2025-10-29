@@ -25,7 +25,11 @@
                     <TextBlock Text="{Binding description}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                     <TextBlock Text="{Binding creator}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                     <TextBlock Text="{Binding supplier, StringFormat=Поставщик: {0}}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
-                    <TextBlock Text="{Binding price, StringFormat=Цена: {0} }" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Цена: " FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
+                        <TextBlock Visibility="{Binding id, Converter={StaticResource PriceVisibilityConverter}}" Text="{Binding price}" TextDecorations="Strikethrough" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18" Foreground="Red" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding id, Converter={StaticResource DiscountMathConverter}}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18" Foreground="Black"/>
+                    </StackPanel>
                     <TextBlock Foreground="{Binding quantity, Converter={StaticResource QuantityToColorConverter}}" Text="{Binding quantity, StringFormat=Количество на складе: {0}}" FontFamily="Times New Roman" Padding="0,0,0,1" FontSize="18"/>
                 </StackPanel>
 
