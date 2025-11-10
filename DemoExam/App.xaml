@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:DemoExam"
-             StartupUri="/Views/Auth.xaml">
+             StartupUri="/Views/Auth.xaml"
+             >
     <Application.Resources>
         <local:DiscountToBGConverter x:Key="DiscountToBGConverter"/>
         <local:QuantityToColorConverter x:Key="QuantityToColorConverter"/>
@@ -15,5 +16,6 @@
         <local:ManagerVisibilityConverter x:Key="ManagerVisibilityConverter"/>
         <local:PriceVisibilityConverter x:Key="PriceVisibilityConverter"/>
         <local:DiscountMathConverter x:Key="DiscountMathConverter"/>
+        <FontFamily x:Key="TimesNewRoman"/>
     </Application.Resources>
 </Application>

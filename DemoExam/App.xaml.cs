@@ -1,6 +1,5 @@
 ﻿using DemoExam.Timer;
 using DemoExam.Views;
-using System.Configuration;
 using System.Data;
 using System.Windows;
 

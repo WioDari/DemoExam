@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DemoExam.Views"
         mc:Ignorable="d"
-        Title="Авторизация" Height="494" Width="452" ResizeMode="NoResize" FontFamily="Times New Roman" Loaded="Window_Loaded">
+        Title="Авторизация" Height="494" Width="452" ResizeMode="NoResize" FontFamily="Times New Roman" Loaded="Window_Loaded" Icon="/Resources/Images/Icon.png">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -161,6 +161,50 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Border1" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border1" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border1" Color="#FF569DE5"/>
+        <Style x:Key="TextBoxStyle2" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border1}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" CornerRadius="8,8,8,8">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border1}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border1}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -176,10 +220,13 @@
         <Label Content="Вход в приложение" Margin="66,0,48,0" FontSize="36" FontFamily="Times New Roman" Grid.ColumnSpan="2" FontWeight="Bold"/>
         <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="1" Content="Войти" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="51" Width="208" FontFamily="Times New Roman" FontSize="22" Background="MediumSpringGreen" Foreground="Black" Command="{Binding LoginCommand}"/>
         <Button Style="{DynamicResource ButtonStyle2}" Content="Гостевой режим" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="208" Height="51" FontFamily="Times New Roman" FontSize="22" Command="{Binding OpenGuestCommand}"/>
-        <TextBox Style="{DynamicResource TextBoxStyle1}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="138,37,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" FontSize="24" Height="34" Text="{Binding login}"/>
-        <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="138,111,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" FontSize="24" Height="34" Text="{Binding password}"/>
+        <TextBox Style="{DynamicResource TextBoxStyle2}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="138,37,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" FontSize="24" Height="34" Text="{Binding login}"/>
+        <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="138,111,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" FontSize="24" Height="34" Text="{Binding password}" Style="{DynamicResource TextBoxStyle2}"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,39,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Логин:" VerticalAlignment="Top" FontSize="24" Height="32" Width="77" RenderTransformOrigin="0.35,0.568"/>
         <Label Content="Пароль:" HorizontalAlignment="Left" Margin="16,103,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Height="42" Width="97"/>
-        <Image x:Name="BG" HorizontalAlignment="Left" Height="441" VerticalAlignment="Top" Width="453" Source="/Resources/Images/aaaa.jpg" Grid.RowSpan="4" Grid.ColumnSpan="2" Margin="0,25,0,0" Panel.ZIndex="-1" Opacity="0"/>
+        <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="82,94,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="288" FontSize="24" Height="34" Text="{Binding captchaInput, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxStyle2}"/>
+        <Button Style="{DynamicResource ButtonStyle2}" Content="Обновить" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Width="113" Height="32" FontFamily="Times New Roman" FontSize="22" Command="{Binding UpdateCaptchaCommand}" Grid.ColumnSpan="2" Margin="170,145,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="181,31,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding captchaText}" VerticalAlignment="Top" FontSize="22" Grid.ColumnSpan="2"/>
+        <Image Source="{Binding captchaImage}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="50" Margin="127,18,0,0" Grid.Row="2" VerticalAlignment="Top" Width="200"/>
     </Grid>
 </Window>

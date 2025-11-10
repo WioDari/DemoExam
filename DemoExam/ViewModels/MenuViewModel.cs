@@ -1,4 +1,5 @@
 ﻿using DemoExam.Models;
+using DemoExam.Properties;
 using DemoExam.Timer;
 using DemoExam.Views;
 using System;
@@ -104,6 +105,9 @@ namespace DemoExam.ViewModels
         public void Logout()
         {
             Application.Current.Properties["CurrentUser"] = null;
+
+            Settings.Default.Reset();
+            Settings.Default.Save();
 
             Window auth = new Auth();
             auth.Show();
